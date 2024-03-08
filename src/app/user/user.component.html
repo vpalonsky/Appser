@@ -1,9 +1,41 @@
 <section>
     @if (isLoggedIn) {
     <p>Bienvenido, {{ username }}</p>
+    <img (click)="greet()" src="https://github.com/vpalonsky.png" alt="photo">
     } @else {
     <p>Inicia sesión</p>
+    <button (click)="isLoggedIn = true">Log In</button>
     }
 
-    <app-games></app-games>
+    <app-games (addFavoriteEvent)="getFavorite($event)" username='{{username}}'></app-games>
+
+    @if (favGame !== '') {
+    <p>Tu juego favorito es {{ favGame }}</p>
+    }
+
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec
+        purus feugiat, molestie ipsum et, consequat nibh. Etiam non elit dui.
+        Nullam vel erat et metus laoreet interdum. Integer in est non nisi
+        sollicitudin aliquam sit amet at ligula. Sed porttitor, erat sit amet
+        posuere elementum, enim purus eleifend nibh, in tempus sapien eros vitae
+        ligula. Nam laoreet, nunc et auctor elementum, leo ligula molestie nulla,
+        vitae dignissim dolor urna a odio. Nullam eu accumsan massa.
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec
+        purus feugiat, molestie ipsum et, consequat nibh. Etiam non elit dui.
+        Nullam vel erat et metus laoreet interdum. Integer in est non nisi
+        sollicitudin aliquam sit amet at ligula. Sed porttitor, erat sit amet
+        posuere elementum, enim purus eleifend nibh, in tempus sapien eros vitae
+        ligula. Nam laoreet, nunc et auctor elementum, leo ligula molestie nulla,
+        vitae dignissim dolor urna a odio. Nullam eu accumsan massa.
+    </p>
+
+    @defer (on viewport) {
+    <app-comments></app-comments>
+    } @placeholder {
+    <p>Futuros Comentarios</p>
+    } @loading {
+    <p>Cargando Futuros Comentarios...</p>
+    }
 </section>

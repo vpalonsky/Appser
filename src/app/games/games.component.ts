@@ -1,19 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-games',
   standalone: true,
   imports: [],
   template: `
+    <h2>Games</h2>
+    <h3>Username: {{ username }}</h3>
     <ul>
       @for (game of games; track game.id) {
-        <li>{{ game.name }} - {{ game.genre }}</li>
+        <li (click)="fav(game.name)">{{ game.name }} - {{ game.genre }}</li>
       }
     </ul>
   `,
   styles: ``
 })
 export class GamesComponent {
+  @Input() username = '';
+  @Output() addFavoriteEvent = new EventEmitter<string>();
+
+  fav(gameName: string) {
+    this.addFavoriteEvent.emit(gameName);
+  }
+
   games = [
     {
       id: 1,
